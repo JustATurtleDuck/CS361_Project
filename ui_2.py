@@ -2,7 +2,6 @@ import time
 import csv
 
 def main():
-    prng_file = "prng-service.txt"
     recipe_file = "recipes.csv"
     add_recipe_input_file = "add_recipe_input.txt"
     remove_recipe_input_file = "remove_recipe_input.txt"
