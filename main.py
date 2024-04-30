@@ -11,9 +11,9 @@ def main():
     while True:
         print("\nPress ENTER to see contents of the recipe book")
         print("1 to add a recipe")
-        print("2 to remove a recipe")
+        print("2 to remove a recipe (cannot be undone)")
         print("3 to search a recipe")
-        print("or anything else to exit")
+        print("0 to exit the program\n")
         user_input = input("Please enter a command: ")
 
         if user_input == "":
@@ -30,18 +30,41 @@ def main():
                     print()
 
         elif user_input == "1":
+
             while True:
+
                 recipe_name = input("Enter the name of the recipe (or 'back' to go back): ")
+
                 if recipe_name.lower() == 'back':
                     break
+
+                with open(recipe_file, 'r') as file:
+
+                    reader = csv.reader(file, delimiter=';')
+
+                    for row in reader:
+
+                        if row[0] == recipe_name:
+
+                            replace = input("This recipe already exists. Do you want to replace it? (yes/no): ")
+
+                            if replace.lower() != 'yes':
+                                continue
+
                 ingredients = input("Enter the ingredients of the recipe separated by commas (or 'back' to go back): ")
+
                 if ingredients.lower() == 'back':
                     continue
+
                 instructions = input("Enter the instructions of the recipe separated by commas (or 'back' to go back): ")
+
                 if instructions.lower() == 'back':
                     continue
+
                 with open(add_recipe_input_file, 'w') as file:
+
                     file.write(f'{recipe_name};{ingredients};{instructions}')
+
                 break
 
         elif user_input == "2":
@@ -57,8 +80,12 @@ def main():
             with open(search_recipe_output_file, 'r') as file:
                 print(file.read())
 
-        else:
+        elif user_input == "0":
             break
+
+        else:
+            print("Invalid input. Please try again.")
+
 
 if __name__ == "__main__":
     main()
