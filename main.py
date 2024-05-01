@@ -1,3 +1,4 @@
+# main.py
 import time
 import csv
 
@@ -7,6 +8,9 @@ def main():
     remove_recipe_input_file = "remove_recipe_input.txt"
     search_recipe_input_file = "search_recipe_input.txt"
     search_recipe_output_file = "search_recipe_output.txt"
+    search_by_ingredient_input_file = "search_by_ingredient_input.txt"
+    search_by_ingredient_output_file = "search_by_ingredient_output.txt"
+    random_recipe_output_file = "random_recipe_output.txt"
 
     while True:
         restart = False
@@ -14,6 +18,8 @@ def main():
         print("1 to add a recipe")
         print("2 to remove a recipe (cannot be undone)")
         print("3 to search a recipe")
+        print("4 to search a recipe by ingredient")
+        print("5 to get a random recipe")
         print("0 to exit the program\n")
         user_input = input("Please enter a command: ")
 
@@ -64,8 +70,21 @@ def main():
             recipe_name = input("Enter the name of the recipe to search: ")
             with open(search_recipe_input_file, 'w') as file:
                 file.write(recipe_name)
-            time.sleep(2)
+            time.sleep(1)
             with open(search_recipe_output_file, 'r') as file:
+                print(file.read())
+
+        elif user_input == "4":
+            ingredient = input("Enter the ingredient to search: ")
+            with open(search_by_ingredient_input_file, 'w') as file:
+                file.write(ingredient)
+            time.sleep(1)
+            with open(search_by_ingredient_output_file, 'r') as file:
+                print(file.read())
+
+        elif user_input == "5":
+            time.sleep(1)
+            with open(random_recipe_output_file, 'r') as file:
                 print(file.read())
 
         elif user_input == "0":
