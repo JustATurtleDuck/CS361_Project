@@ -62,9 +62,37 @@ def main():
                     break
 
         elif user_input == "2":
+
             recipe_name = input("Enter the name of the recipe to remove: ")
-            with open(remove_recipe_input_file, 'w') as file:
-                file.write(recipe_name)
+
+            with open(recipe_file, 'r') as file:
+                reader = csv.reader(file, delimiter=';')
+
+                for row in reader:
+
+                    if row[0] == recipe_name:
+
+                        print(f'\nRecipe: {row[0]}')
+
+                        print('Ingredients:')
+
+                        for ingredient in row[1].strip('[]').split(','):
+                            print(f'- {ingredient.strip()}')
+
+                        print('Instructions:')
+
+                        for instruction in row[2].strip('[]').split(','):
+                            print(f'- {instruction.strip()}')
+
+                        print()
+
+                        confirm = input("Are you sure you want to remove this recipe? (y/n): ")
+
+                        if confirm.lower() == 'y' or 'Y':
+                            with open(remove_recipe_input_file, 'w') as file:
+                                file.write(recipe_name)
+
+                        break
 
         elif user_input == "3":
             recipe_name = input("Enter the name of the recipe to search: ")
